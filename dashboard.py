@@ -91,9 +91,12 @@ c2.metric("Teams", filtered_df["team_name"].nunique())
 c3.metric("Tournaments", filtered_df["tournament_name"].nunique())
 
 # ============================================================
+# # ============================================================
 # Question 1
 # Top Teams by Win Percentage
 # ============================================================
+
+st.header("Question 1: Top Teams by Win Percentage")
 
 wins = (
     filtered_df.groupby("team_name")
@@ -107,8 +110,8 @@ matches = (
     .reset_index(name="Matches")
 )
 
-wins = wins.merge(matches,on="team_name")
-wins = wins[wins["Matches"]>=10]
+wins = wins.merge(matches, on="team_name")
+wins = wins[wins["Matches"] >= 10]
 
 top10 = wins.sort_values(
     "Win Percentage",
@@ -125,12 +128,14 @@ fig1 = px.bar(
     title="Top Teams by Win Percentage"
 )
 
-st.plotly_chart(fig1,use_container_width=True)
+st.plotly_chart(fig1, use_container_width=True)
 
 # ============================================================
 # Question 2
 # Average Goals per Tournament
 # ============================================================
+
+st.header("Question 2: Average Goals by Tournament")
 
 filtered_df["Total Goals"] = (
     filtered_df["goals_for"] +
@@ -151,12 +156,14 @@ fig2 = px.line(
     title="Average Goals by Tournament"
 )
 
-st.plotly_chart(fig2,use_container_width=True)
+st.plotly_chart(fig2, use_container_width=True)
 
 # ============================================================
 # Question 3
 # Possession vs Goals
 # ============================================================
+
+st.header("Question 3: Possession vs Goals Scored")
 
 possession_df = filtered_df.dropna(subset=["possession"])
 
@@ -165,27 +172,28 @@ fig3 = px.scatter(
     x="possession",
     y="goals_for",
     color="result",
-    hover_data=["team_name","opponent_name"],
+    hover_data=["team_name", "opponent_name"],
     title="Possession vs Goals Scored"
 )
 
-st.plotly_chart(fig3,use_container_width=True)
+st.plotly_chart(fig3, use_container_width=True)
 
 # ============================================================
 # Question 4
 # Goals by Stage
 # ============================================================
 
+st.header("Question 4: Goals Distribution by Stage")
+
 fig4 = px.box(
     filtered_df,
     x="stage_name",
     y="Total Goals",
-
     color="stage_name",
     title="Goals Distribution by Stage"
 )
 
-st.plotly_chart(fig4,use_container_width=True)
+st.plotly_chart(fig4, use_container_width=True)
 
 st.markdown("---")
 st.header("Question 5: Top Teams by Average Shots on Target")
