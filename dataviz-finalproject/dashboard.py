@@ -24,7 +24,11 @@ stages, and match statistics.
 # ----------------------------
 # Load Dataset
 # ----------------------------
-df = pd.read_csv("fifa_wc_mens_match_dataset_1970_2022.csv")
+from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve().parent
+
+df = pd.read_csv(BASE_DIR / "fifa_wc_mens_match_dataset_1970_2022.csv")
 
 # ----------------------------
 # Sidebar Filters
